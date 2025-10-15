@@ -1,0 +1,881 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Nova Ledger Base Styles - Precision Through Minimalism */
+@layer base {
+  /* Root variables for consistent theming */
+  :root {
+    --nova-shadow-color: 0, 0, 0;
+    --nova-blur-strength: 8px;
+    --nova-transition-standard: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --nova-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --nova-transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  * {
+    @apply border-nova-gray-200;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  html {
+    @apply scroll-smooth;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    text-rendering: optimizeLegibility;
+    -webkit-font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+  
+  body {
+    @apply bg-background-primary text-text-primary font-inter antialiased;
+    @apply selection:bg-electric-blue-200 selection:text-electric-blue-900;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'rlig' 1, 'calt' 1, 'ss01' 1;
+    overflow-x: hidden;
+  }
+  
+  /* Enhanced scrollbar design */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-nova-gray-100;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-nova-gray-300 rounded-full;
+    transition: background-color var(--nova-transition-fast);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-nova-gray-400;
+  }
+  
+  ::-webkit-scrollbar-corner {
+    @apply bg-nova-gray-100;
+  }
+  
+  /* Firefox scrollbar */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: theme('colors.nova-gray.300') theme('colors.nova-gray.100');
+  }
+  
+  /* Focus-visible support */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+  
+  :focus-visible {
+    @apply outline-none ring-2 ring-electric-blue-500 ring-opacity-50;
+  }
+  
+  /* Improved text selection */
+  ::selection {
+    @apply bg-electric-blue-100 text-electric-blue-900;
+  }
+  
+  ::-moz-selection {
+    @apply bg-electric-blue-100 text-electric-blue-900;
+  }
+  
+  /* Remove default button styles */
+  button {
+    @apply bg-transparent border-none outline-none cursor-pointer;
+    font: inherit;
+  }
+  
+  /* Remove default input styles */
+  input, textarea, select {
+    @apply bg-transparent border-none outline-none;
+    font: inherit;
+  }
+  
+  /* Accessibility improvements */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    * {
+      @apply border-black;
+    }
+    
+    .nova-card {
+      @apply border-2 border-black;
+    }
+  }
+  
+  /* Dark mode preparation */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --nova-shadow-color: 0, 0, 0;
+    }
+  }
+}
+
+/* Nova Ledger Component Library - Award-Winning Design System */
+@layer components {
+  
+  /* =================================
+     FOCUS & ACCESSIBILITY SYSTEM
+     ================================= */
+  .nova-focus {
+    @apply focus:outline-none focus:ring-2 focus:ring-electric-blue-500 focus:ring-opacity-50 focus:border-electric-blue-500;
+    transition: box-shadow var(--nova-transition-fast), border-color var(--nova-transition-fast);
+  }
+  
+  .nova-focus-visible {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-blue-500 focus-visible:ring-opacity-50;
+  }
+  
+  /* =================================
+     CARD SYSTEM - Minimalist Elegance
+     ================================= */
+  .nova-card {
+    @apply bg-background-primary border border-border rounded-xl shadow-nova;
+    transition: all var(--nova-transition-standard);
+    backdrop-filter: blur(var(--nova-blur-strength));
+  }
+  
+  .nova-card-hover {
+    @apply hover:shadow-hover hover:border-border-medium hover:-translate-y-0.5;
+    transform-origin: center;
+  }
+  
+  .nova-card-interactive {
+    @apply nova-card nova-card-hover cursor-pointer;
+    @apply focus-visible:ring-2 focus-visible:ring-electric-blue-500 focus-visible:ring-opacity-50;
+    @apply active:scale-95 active:shadow-sm;
+  }
+  
+  .nova-card-elevated {
+    @apply nova-card shadow-nova-lg;
+  }
+  
+  .nova-card-glass {
+    @apply bg-background-glass backdrop-blur-nova border-border-subtle;
+  }
+  
+  /* =================================
+     BUTTON SYSTEM - Precision & Control
+     ================================= */
+  .nova-button-base {
+    @apply inline-flex items-center justify-center font-medium transition-all duration-250 nova-focus-visible;
+    @apply disabled:cursor-not-allowed disabled:opacity-48;
+    transform-origin: center;
+  }
+  
+  /* Button Sizes */
+  .nova-button-xs {
+    @apply nova-button-base px-2 py-1 text-xs rounded-md;
+  }
+  
+  .nova-button-sm {
+    @apply nova-button-base px-3 py-1.5 text-sm rounded-md;
+  }
+  
+  .nova-button-md {
+    @apply nova-button-base px-4 py-2 text-sm rounded-lg;
+  }
+  
+  .nova-button-lg {
+    @apply nova-button-base px-6 py-3 text-base rounded-lg;
+  }
+  
+  .nova-button-xl {
+    @apply nova-button-base px-8 py-4 text-lg rounded-xl;
+  }
+  
+  /* Button Variants */
+  .nova-button-primary {
+    @apply nova-button-md bg-electric-blue-500 text-white;
+    @apply hover:bg-electric-blue-600 hover:shadow-blue hover:scale-105;
+    @apply active:bg-electric-blue-700 active:scale-95;
+    @apply disabled:bg-nova-gray-300 disabled:text-nova-gray-500 disabled:shadow-none disabled:hover:scale-100;
+  }
+  
+  .nova-button-secondary {
+    @apply nova-button-md bg-background-primary text-text-primary border border-border-medium;
+    @apply hover:bg-background-tertiary hover:border-border-strong hover:shadow-nova-md hover:scale-105;
+    @apply active:bg-nova-gray-100 active:scale-95;
+    @apply disabled:bg-nova-gray-100 disabled:text-nova-gray-400 disabled:border-nova-gray-200;
+  }
+  
+  .nova-button-ghost {
+    @apply nova-button-md bg-transparent text-text-secondary;
+    @apply hover:bg-background-tertiary hover:text-text-primary hover:scale-105;
+    @apply active:bg-nova-gray-200 active:scale-95;
+    @apply disabled:text-nova-gray-400;
+  }
+  
+  .nova-button-danger {
+    @apply nova-button-md bg-error-500 text-white;
+    @apply hover:bg-error-600 hover:shadow-red hover:scale-105;
+    @apply active:bg-error-700 active:scale-95;
+  }
+  
+  .nova-button-success {
+    @apply nova-button-md bg-success-500 text-white;
+    @apply hover:bg-success-600 hover:shadow-green hover:scale-105;
+    @apply active:bg-success-700 active:scale-95;
+  }
+  
+  /* Icon Buttons */
+  .nova-button-icon {
+    @apply nova-button-base p-2 rounded-lg;
+  }
+  
+  .nova-button-icon-sm {
+    @apply nova-button-base p-1.5 rounded-md;
+  }
+  
+  .nova-button-icon-lg {
+    @apply nova-button-base p-3 rounded-xl;
+  }
+  
+  /* =================================
+     INPUT SYSTEM - Functional Beauty
+     ================================= */
+  .nova-input-base {
+    @apply w-full bg-background-primary border border-border rounded-lg transition-all duration-250 nova-focus;
+    @apply placeholder:text-text-tertiary hover:border-border-medium;
+  }
+  
+  .nova-input {
+    @apply nova-input-base px-3 py-2 text-sm;
+  }
+  
+  .nova-input-sm {
+    @apply nova-input-base px-2.5 py-1.5 text-xs;
+  }
+  
+  .nova-input-lg {
+    @apply nova-input-base px-4 py-3 text-base;
+  }
+  
+  .nova-input-error {
+    @apply border-error-500 focus:ring-error-500 focus:border-error-500;
+  }
+  
+  .nova-input-success {
+    @apply border-success-500 focus:ring-success-500 focus:border-success-500;
+  }
+  
+  .nova-textarea {
+    @apply nova-input resize-none min-h-20;
+  }
+  
+  /* =================================
+     BADGE SYSTEM - Meaningful Color
+     ================================= */
+  .nova-badge-base {
+    @apply inline-flex items-center font-medium rounded-full transition-all duration-200;
+  }
+  
+  .nova-badge-sm {
+    @apply nova-badge-base px-2 py-0.5 text-xs;
+  }
+  
+  .nova-badge {
+    @apply nova-badge-base px-2.5 py-1 text-xs;
+  }
+  
+  .nova-badge-lg {
+    @apply nova-badge-base px-3 py-1.5 text-sm;
+  }
+  
+  /* Badge Variants */
+  .nova-badge-success {
+    @apply nova-badge bg-success-100 text-success-700 border border-success-200;
+  }
+  
+  .nova-badge-warning {
+    @apply nova-badge bg-warning-100 text-warning-700 border border-warning-200;
+  }
+  
+  .nova-badge-error {
+    @apply nova-badge bg-error-100 text-error-700 border border-error-200;
+  }
+  
+  .nova-badge-info {
+    @apply nova-badge bg-info-100 text-info-700 border border-info-200;
+  }
+  
+  .nova-badge-neutral {
+    @apply nova-badge bg-nova-gray-100 text-nova-gray-700 border border-nova-gray-200;
+  }
+  
+  .nova-badge-primary {
+    @apply nova-badge bg-electric-blue-100 text-electric-blue-700 border border-electric-blue-200;
+  }
+  
+  /* Dot Badges */
+  .nova-badge-dot {
+    @apply nova-badge-sm pr-1.5;
+  }
+  
+  .nova-badge-dot::before {
+    content: '';
+    @apply w-1.5 h-1.5 rounded-full mr-1.5;
+  }
+  
+  .nova-badge-success.nova-badge-dot::before {
+    @apply bg-success-500;
+  }
+  
+  .nova-badge-warning.nova-badge-dot::before {
+    @apply bg-warning-500;
+  }
+  
+  .nova-badge-error.nova-badge-dot::before {
+    @apply bg-error-500;
+  }
+  
+  /* =================================
+     TYPOGRAPHY SYSTEM
+     ================================= */
+  .nova-heading-1 {
+    @apply text-4xl font-bold tracking-tight text-text-primary;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  
+  .nova-heading-2 {
+    @apply text-2xl font-semibold text-text-primary;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  
+  .nova-heading-3 {
+    @apply text-xl font-semibold text-text-primary;
+    font-weight: 600;
+  }
+  
+  .nova-heading-4 {
+    @apply text-lg font-medium text-text-primary;
+    font-weight: 500;
+  }
+  
+  .nova-body {
+    @apply text-base leading-relaxed text-text-primary;
+    line-height: 1.6;
+  }
+  
+  .nova-body-sm {
+    @apply text-sm leading-relaxed text-text-primary;
+  }
+  
+  .nova-body-lg {
+    @apply text-lg leading-relaxed text-text-primary;
+  }
+  
+  .nova-caption {
+    @apply text-xs uppercase tracking-wider text-text-tertiary;
+    opacity: 0.6;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  
+  .nova-mono {
+    @apply font-roboto-mono text-sm text-text-primary;
+  }
+  
+  .nova-mono-sm {
+    @apply font-roboto-mono text-xs text-text-primary;
+  }
+  
+  .nova-mono-lg {
+    @apply font-roboto-mono text-base text-text-primary;
+  }
+  
+  .nova-mono-xl {
+    @apply font-roboto-mono text-lg text-text-primary;
+  }
+  
+  /* Numeric display styles */
+  .nova-number {
+    @apply font-roboto-mono font-medium tabular-nums;
+  }
+  
+  .nova-number-lg {
+    @apply nova-number text-2xl;
+  }
+  
+  .nova-number-xl {
+    @apply nova-number text-3xl;
+  }
+  
+  .nova-number-2xl {
+    @apply nova-number text-4xl;
+  }
+  
+  /* =================================
+     LAYOUT COMPONENTS
+     ================================= */
+  .nova-container {
+    @apply w-full mx-auto px-6;
+    max-width: 1440px;
+  }
+  
+  .nova-container-sm {
+    @apply w-full mx-auto px-4;
+    max-width: 1024px;
+  }
+  
+  .nova-container-lg {
+    @apply w-full mx-auto px-8;
+    max-width: 1920px;
+  }
+  
+  .nova-section {
+    @apply py-16 lg:py-24;
+  }
+  
+  .nova-section-sm {
+    @apply py-8 lg:py-12;
+  }
+  
+  .nova-section-lg {
+    @apply py-24 lg:py-32;
+  }
+  
+  /* Grid layouts */
+  .nova-grid {
+    @apply grid gap-6;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  .nova-grid-sm {
+    @apply grid gap-4;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  .nova-grid-lg {
+    @apply grid gap-8;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+  
+  /* =================================
+     INTERACTIVE COMPONENTS
+     ================================= */
+  .nova-dropdown {
+    @apply absolute top-full left-0 mt-2 bg-background-primary border border-border rounded-xl shadow-nova-lg z-dropdown;
+    @apply animate-scale-in;
+    min-width: 200px;
+  }
+  
+  .nova-dropdown-item {
+    @apply block w-full px-4 py-2 text-sm text-text-primary hover:bg-background-tertiary transition-colors duration-200;
+    @apply first:rounded-t-xl last:rounded-b-xl;
+  }
+  
+  .nova-tooltip {
+    @apply absolute z-tooltip px-2 py-1 text-xs text-white bg-obsidian-900 rounded-md shadow-nova-lg;
+    @apply animate-fade-in;
+  }
+  
+  .nova-modal-backdrop {
+    @apply fixed inset-0 z-modal-backdrop bg-background-overlay backdrop-blur-sm;
+    @apply animate-fade-in;
+  }
+  
+  .nova-modal {
+    @apply fixed inset-0 z-modal flex items-center justify-center p-4;
+  }
+  
+  .nova-modal-content {
+    @apply bg-background-primary border border-border rounded-2xl shadow-nova-2xl max-w-lg w-full;
+    @apply animate-scale-in-bounce;
+  }
+  
+  /* =================================
+     CHART COMPONENTS
+     ================================= */
+  .nova-chart-container {
+    @apply relative w-full h-full overflow-hidden;
+  }
+  
+  .nova-chart-bar {
+    @apply transition-all duration-600 ease-nova;
+    transform-origin: bottom;
+  }
+  
+  .nova-chart-bar:hover {
+    @apply scale-105;
+    filter: brightness(1.1);
+  }
+  
+  .nova-chart-line {
+    @apply transition-all duration-1000 ease-nova;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: chart-line-draw 1000ms ease-nova forwards;
+  }
+  
+  .nova-chart-legend {
+    @apply flex flex-wrap gap-4 mt-4;
+  }
+  
+  .nova-chart-legend-item {
+    @apply flex items-center gap-2 text-sm text-text-secondary;
+  }
+  
+  .nova-chart-legend-dot {
+    @apply w-3 h-3 rounded-full flex-shrink-0;
+  }
+  
+  /* =================================
+     STATUS & PROGRESS COMPONENTS
+     ================================= */
+  .nova-progress-bar {
+    @apply w-full h-2 bg-nova-gray-200 rounded-full overflow-hidden;
+  }
+  
+  .nova-progress-fill {
+    @apply h-full bg-electric-blue-500 rounded-full transition-all duration-500 ease-nova;
+    transform-origin: left;
+  }
+  
+  .nova-skeleton {
+    @apply bg-nova-gray-200 animate-pulse-soft rounded;
+  }
+  
+  .nova-skeleton-text {
+    @apply nova-skeleton h-4 w-full;
+  }
+  
+  .nova-skeleton-avatar {
+    @apply nova-skeleton h-10 w-10 rounded-full;
+  }
+  
+  .nova-skeleton-button {
+    @apply nova-skeleton h-10 w-20 rounded-lg;
+  }
+  
+  /* =================================
+     NOTIFICATION COMPONENTS
+     ================================= */
+  .nova-notification {
+    @apply fixed top-4 right-4 z-notification max-w-sm bg-background-primary border border-border rounded-xl shadow-nova-lg;
+    @apply animate-slide-in-right;
+  }
+  
+  .nova-notification-success {
+    @apply nova-notification border-success-200 bg-success-50;
+  }
+  
+  .nova-notification-error {
+    @apply nova-notification border-error-200 bg-error-50;
+  }
+  
+  .nova-notification-warning {
+    @apply nova-notification border-warning-200 bg-warning-50;
+  }
+  
+  .nova-notification-info {
+    @apply nova-notification border-info-200 bg-info-50;
+  }
+}
+
+/* Nova Ledger Utility Classes - Precision Tools */
+@layer utilities {
+  
+  /* =================================
+     GRADIENT UTILITIES
+     ================================= */
+  .text-gradient {
+    @apply bg-gradient-to-r from-obsidian-900 to-obsidian-600 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-blue {
+    @apply bg-gradient-to-r from-electric-blue-600 to-electric-blue-400 bg-clip-text text-transparent;
+  }
+  
+  .bg-gradient-nova {
+    @apply bg-gradient-to-br from-obsidian-900 to-obsidian-800;
+  }
+  
+  .bg-gradient-subtle {
+    @apply bg-gradient-to-br from-nova-gray-50 to-nova-gray-100;
+  }
+  
+  .bg-gradient-card {
+    @apply bg-gradient-to-br from-background-primary to-background-secondary;
+  }
+  
+  .bg-gradient-blue {
+    @apply bg-gradient-to-br from-electric-blue-500 to-electric-blue-600;
+  }
+  
+  /* =================================
+     BORDER UTILITIES
+     ================================= */
+  .border-hairline {
+    @apply border border-border;
+  }
+  
+  .border-hairline-light {
+    @apply border border-border-light;
+  }
+  
+  .border-hairline-medium {
+    @apply border border-border-medium;
+  }
+  
+  .border-hairline-strong {
+    @apply border border-border-strong;
+  }
+  
+  .border-top-hairline {
+    @apply border-t border-border;
+  }
+  
+  .border-bottom-hairline {
+    @apply border-b border-border;
+  }
+  
+  .border-left-hairline {
+    @apply border-l border-border;
+  }
+  
+  .border-right-hairline {
+    @apply border-r border-border;
+  }
+  
+  /* =================================
+     SHADOW UTILITIES
+     ================================= */
+  .shadow-nova-soft {
+    @apply shadow-nova-xs;
+  }
+  
+  .shadow-nova-medium {
+    @apply shadow-nova;
+  }
+  
+  .shadow-nova-strong {
+    @apply shadow-nova-lg;
+  }
+  
+  .shadow-nova-intense {
+    @apply shadow-nova-xl;
+  }
+  
+  .shadow-colored-blue {
+    @apply shadow-blue;
+  }
+  
+  .shadow-colored-green {
+    @apply shadow-green;
+  }
+  
+  .shadow-colored-red {
+    @apply shadow-red;
+  }
+  
+  /* =================================
+     GLASS MORPHISM
+     ================================= */
+  .glass {
+    @apply backdrop-blur-nova bg-background-glass border border-border-subtle;
+  }
+  
+  .glass-strong {
+    @apply backdrop-blur-lg bg-background-glass border border-border-subtle shadow-glass-strong;
+  }
+  
+  /* =================================
+     ANIMATION UTILITIES
+     ================================= */
+  .animate-in {
+    @apply animate-fade-in;
+  }
+  
+  .animate-in-up {
+    @apply animate-fade-in-up;
+  }
+  
+  .animate-in-down {
+    @apply animate-fade-in-down;
+  }
+  
+  .animate-in-left {
+    @apply animate-fade-in-left;
+  }
+  
+  .animate-in-right {
+    @apply animate-fade-in-right;
+  }
+  
+  .animate-scale {
+    @apply animate-scale-in;
+  }
+  
+  .animate-bounce-soft {
+    @apply animate-scale-in-bounce;
+  }
+  
+  .animate-slide-left {
+    @apply animate-slide-in-left;
+  }
+  
+  .animate-slide-right {
+    @apply animate-slide-in-right;
+  }
+  
+  /* Staggered animations */
+  .stagger-1 { animation-delay: 0ms; }
+  .stagger-2 { animation-delay: 100ms; }
+  .stagger-3 { animation-delay: 200ms; }
+  .stagger-4 { animation-delay: 300ms; }
+  .stagger-5 { animation-delay: 400ms; }
+  .stagger-6 { animation-delay: 500ms; }
+  
+  /* =================================
+     LAYOUT UTILITIES
+     ================================= */
+  .aspect-card {
+    aspect-ratio: 4 / 3;
+  }
+  
+  .aspect-banner {
+    aspect-ratio: 16 / 9;
+  }
+  
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+  
+  .aspect-portrait {
+    aspect-ratio: 3 / 4;
+  }
+  
+  /* =================================
+     INTERACTION UTILITIES
+     ================================= */
+  .hover-lift {
+    @apply transition-all duration-250 hover:-translate-y-1 hover:shadow-nova-lg;
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-250 hover:scale-105;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-250 hover:shadow-blue;
+  }
+  
+  .active-press {
+    @apply transition-transform duration-150 active:scale-95;
+  }
+  
+  /* =================================
+     ACCESSIBILITY UTILITIES
+     ================================= */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  .not-sr-only {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+  
+  /* Focus management */
+  .focus-ring {
+    @apply focus-visible:ring-2 focus-visible:ring-electric-blue-500 focus-visible:ring-opacity-50 focus-visible:outline-none;
+  }
+  
+  .focus-ring-inset {
+    @apply focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-electric-blue-500 focus-visible:ring-opacity-50 focus-visible:outline-none;
+  }
+  
+  /* =================================
+     PERFORMANCE UTILITIES
+     ================================= */
+  .will-change-transform {
+    will-change: transform;
+  }
+  
+  .will-change-auto {
+    will-change: auto;
+  }
+  
+  .gpu-accelerated {
+    transform: translateZ(0);
+  }
+  
+  /* =================================
+     RESPONSIVE UTILITIES
+     ================================= */
+  .mobile-only {
+    @apply block md:hidden;
+  }
+  
+  .desktop-only {
+    @apply hidden md:block;
+  }
+  
+  .tablet-up {
+    @apply hidden md:block;
+  }
+  
+  .mobile-up {
+    @apply block;
+  }
+  
+  /* =================================
+     THEME UTILITIES
+     ================================= */
+  .theme-light {
+    color-scheme: light;
+  }
+  
+  .theme-dark {
+    color-scheme: dark;
+  }
+  
+  /* =================================
+     PRINT UTILITIES
+     ================================= */
+  @media print {
+    .print-hidden {
+      display: none !important;
+    }
+    
+    .print-visible {
+      display: block !important;
+    }
+  }
+}
