@@ -1,6 +1,6 @@
 # 🌟 Nova Ledger - Freelance Dashboard (Task 6 - Elevvo Pathways Web Development Internship Program)
 
-A production-level, **sophisticated freelance management dashboard** built with **React.js and TailwindCSS**. It features a dark theme design inspired by Linear's precision and Notion's clarity, tailored for high-performing freelancers who demand excellence and control.
+A **management dashboard** for a fictional freelance client built with **React.js and TailwindCSS**. It features a sleek dark interface, real-time analytics, interactive project tracking, and smooth, responsive navigation designed to enhance productivity and streamline client management.
 
 ---
 
