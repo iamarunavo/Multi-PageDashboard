@@ -7,9 +7,7 @@ A **management dashboard** for a fictional freelance client built with **React.j
 ## ✨ Features
 
 ### Core Functionality
-- ✅ **Nova Ledger Design System**: Dark theme with Obsidian Black (#0E0E10) and vibrant gradient accents  
 - ✅ **Advanced Typography**: Inter & Roboto Mono with 8pt spacing system for optimal readability  
-- ✅ **Sophisticated Color Palette**: Electric Blue (#3B82F6) and Lime Tint (#A7F3D0) with semantic colors  
 - ✅ **Multi-Page Navigation**: Overview, Projects, Analytics, Clients, Tasks, and Profile pages  
 - ✅ **Vibrant Analytics Cards**: Gradient backgrounds with real-time statistics and trend indicators  
 - ✅ **Responsive Layout**: Flexbox-based full-height layout with collapsible sidebar  
